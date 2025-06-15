@@ -7,6 +7,7 @@ $conn = db_connect();
 
 $ci=$_POST['ci'];
 $contrasena=$_POST['contrasena'];
+$rol=$_POST['rol'];
 //echo "el ci es:".$ci;
 //echo "<br> su contraseña es: ".$contrasena;
 
@@ -29,7 +30,27 @@ $resp= mysqli_fetch_assoc($resultado);
 
 if($ci==$resp['ci'] && $contrasena==$resp['contrasena'])
 {
-echo "usuario tipo estudiante";
+     session_start();
+    $_SESSION['nombre'] = $resp['nombre'];
+    $_SESSION['rol'] = $resp['rol'];
+    $_SESSION['id_usuario'] = $resp['id'];
+
+    // Redirección según rol
+    if ($resp['rol'] == 'estudiante') {
+        echo '<script>window.location="../estudiante/dashboard.php"</script>';
+    } elseif ($resp['rol'] == 'profesor') {
+        echo '<script>window.location="../profesor/dashboard.php"</script>';
+    } elseif ($resp['rol'] == 'secretaria') {
+        echo '<script>window.location="../secretaria/dashboard.php"</script>';
+    } elseif ($resp['rol'] == 'directora') {
+        echo '<script>window.location="../directora/dashboard.php"</script>';
+    } else {
+        echo "<script>alert('Rol no válido'); window.location='../index.php';</script>";
+    }
+} else {
+    echo "<script>alert('CI o contraseña incorrectos'); window.location='../index.php';</script>";
+}
+//echo "usuario tipo estudiante";
 //creamos la sesion
 //session_start();
 //$_SESSION["va el nombre de la sesion"]=$usuario;
@@ -37,7 +58,7 @@ echo "usuario tipo estudiante";
 //$_SESSION['nombre']=$resp['nombre'];
 //$_SESSION['contrasena']=$contrasena;
 //echo '<script>window.location="../administracion.php"</script>';
-}//else{
+//else{
 //	echo "usuario incocorrecto";
     //echo "<script>alert('usuario o contraseña incorrecta')</script>";
    //echo '<script>window.location="../loggin.php"</script>';
