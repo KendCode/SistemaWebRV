@@ -1,8 +1,8 @@
 -- Crear base de datos
-CREATE DATABASE sistema_escolar;
+CREATE DATABASE IF NOT EXISTS sistema_escolar;
 USE sistema_escolar;
 
--- Tabla de usuarios
+-- Tabla: usuarios
 CREATE TABLE usuarios (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(100),
@@ -10,20 +10,18 @@ CREATE TABLE usuarios (
     ci VARCHAR(20) UNIQUE NOT NULL,
     contrasena VARCHAR(255) NOT NULL,
     rol ENUM('profesor', 'estudiante', 'secretaria') NOT NULL,
-    creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    CHECK (nombre REGEXP '^[A-Za-z ]+$'),
-    CHECK (apellido REGEXP '^[A-Za-z ]+$'),
-    CHECK (ci REGEXP '^[0-9]+$')
+    creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Tabla de cursos
+-- Tabla: cursos (grado y paralelo, solo secundaria)
 CREATE TABLE cursos (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    nombre VARCHAR(100),
-    nivel VARCHAR(50)
+    grado ENUM('Primero', 'Segundo', 'Tercero', 'Cuarto', 'Quinto', 'Sexto') NOT NULL,
+    paralelo CHAR(1) CHECK (paralelo IN ('A', 'B', 'C', 'D', 'E')),
+    nivel VARCHAR(20) DEFAULT 'Secundaria'
 );
 
--- Tabla de estudiantes
+-- Tabla: estudiantes
 CREATE TABLE estudiantes (
     id INT PRIMARY KEY AUTO_INCREMENT,
     usuario_id INT,
@@ -33,7 +31,7 @@ CREATE TABLE estudiantes (
     FOREIGN KEY (curso_id) REFERENCES cursos(id)
 );
 
--- Tabla de profesores
+-- Tabla: profesores
 CREATE TABLE profesores (
     id INT PRIMARY KEY AUTO_INCREMENT,
     usuario_id INT,
@@ -42,13 +40,13 @@ CREATE TABLE profesores (
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
 );
 
--- Tabla de materias
+-- Tabla: materias
 CREATE TABLE materias (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(100)
 );
 
--- Tabla de asignación de docentes a cursos y materias
+-- Tabla: asignaciones_docente
 CREATE TABLE asignaciones_docente (
     id INT PRIMARY KEY AUTO_INCREMENT,
     profesor_id INT,
@@ -59,7 +57,7 @@ CREATE TABLE asignaciones_docente (
     FOREIGN KEY (materia_id) REFERENCES materias(id)
 );
 
--- Tabla de calificaciones por estudiante/materia
+-- Tabla: calificaciones
 CREATE TABLE calificaciones (
     id INT PRIMARY KEY AUTO_INCREMENT,
     estudiante_id INT,
@@ -74,7 +72,7 @@ CREATE TABLE calificaciones (
     FOREIGN KEY (asignacion_id) REFERENCES asignaciones_docente(id) ON DELETE CASCADE
 );
 
--- Tabla de observaciones
+-- Tabla: observaciones
 CREATE TABLE observaciones (
     id INT PRIMARY KEY AUTO_INCREMENT,
     estudiante_id INT,
