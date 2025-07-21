@@ -4,19 +4,6 @@ session_start();
 
 $conn = db_connect();
 
-echo "Bienvenido usuario: " . $_SESSION['nombre'] . "<br>";
-
-if (isset($_SESSION['ci'])) {
-    echo "CI: " . $_SESSION['ci'] . "<br>";
-} else {
-    echo "CI no disponible<br>";
-}
-
-if (isset($_SESSION['id_usuario'])) {
-    echo "ID de usuario: " . $_SESSION['id_usuario'] . "<br>";
-}
-
-// Suponiendo que el ID del estudiante está en la sesión
 $id_estudiante = $_SESSION['id_usuario']; // Cambia esto si el ID está en otra variable
 
 // Consulta para obtener usuarios con rol 'profesor'
@@ -43,16 +30,55 @@ WHERE
         FROM 
             estudiantes e
         WHERE 
-            e.usuario_id = $id_estudiante)"; // Usar la variable aquí
+            e.usuario_id = $id_estudiante)";
 
 $resp = mysqli_query($conn, $consulta);
 
-// Mostrar resultados
+$profesores = [];
 if ($resp) {
     while ($fila = mysqli_fetch_assoc($resp)) {
-        echo "<br>Profesor: " . $fila['nombre_profesor'] . " " . $fila['apellido_profesor'] . " - Grado: " . $fila['grado'] . " - Paralelo: " . $fila['paralelo'];
+        $profesores[] = $fila;
     }
 } else {
-    echo "<br>Error en la consulta: " . mysqli_error($conn);
+    $error = "Error en la consulta: " . mysqli_error($conn);
 }
 ?>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
+    <title>Dashboard Estudiante</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Bienvenido, <?php echo $_SESSION['nombre']; ?></h1>
+        <p>CI: <?php echo isset($_SESSION['ci']) ? $_SESSION['ci'] : 'CI no disponible'; ?></p>
+        <p>ID de usuario: <?php echo isset($_SESSION['id_usuario']) ? $_SESSION['id_usuario'] : 'No disponible'; ?></p>
+        
+        <button class="btn btn-primary mb-3" onclick="location.href='ver_calificaciones.php'">
+            <i class="bi bi-book"></i> Ver Calificaciones
+        </button>
+
+        <h2>Profesores Asignados</h2>
+        <div class="list-group">
+            <?php if (!empty($profesores)): ?>
+                <?php foreach ($profesores as $fila): ?>
+                    <a href="#" class="list-group-item list-group-item-action">
+                        Profesor: <?php echo $fila['nombre_profesor'] . " " . $fila['apellido_profesor'] . " - Grado: " . $fila['grado'] . " - Paralelo: " . $fila['paralelo']; ?>
+                    </a>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <div class="alert alert-warning" role="alert">
+                    <?php echo isset($error) ? $error : 'No hay profesores asignados.'; ?>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
