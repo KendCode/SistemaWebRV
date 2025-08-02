@@ -73,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </head>
 <body>
 <div class="container mt-5">
-    <a href="profesores.php" class="btn btn-secondary mb-3">← Volver</a>
+    <a href="ListProf.php" class="btn btn-secondary mb-3">← Volver</a>
     <h2>Editar Profesor</h2>
 
     <?php echo $mensaje; ?>

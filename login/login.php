@@ -9,7 +9,7 @@
     <div class="card p-4 shadow" style="width: 350px;">
         <h3 class="mb-3 text-center">Iniciar Sesión</h3>
 
-        <form method="POST" action="control/control.php">
+        <form method="POST" action="../control/control.php">
             <div class="mb-3">
                 <label for="ci" class="form-label">Cédula de Identidad</label>
                 <input type="text" name="ci" id="ci" class="form-control" required autofocus />

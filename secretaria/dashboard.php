@@ -1,3 +1,6 @@
+<?php
+include("../layaouts/navegacion.php");
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -14,41 +17,12 @@
             background-color: #e7f1ff;
             padding: 20px 0;
         }
-        .navbar {
-            background-color: #007bff;
-        }
-        .navbar-brand, .nav-link {
-            color: white !important;
-        }
         h1, h2 {
             color: #007bff;
         }
     </style>
 </head>
 <body>
-
-<nav class="navbar navbar-expand-lg navbar-light fixed-top">
-    <a class="navbar-brand" href="#">Colegio Dahboar</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-            <li class="nav-item active">
-                <a class="nav-link" href="#inicio">Inicio</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="../profesor/ListProf.php">Profesores</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#cursos">Cursos</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#contacto">Contacto</a>
-            </li>
-        </ul>
-    </div>
-</nav>
 
 <div class="container mt-5" id="inicio">
     <header class="mb-4">

@@ -30,7 +30,7 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item"><a class="nav-link active" href="#">Inicio</a></li>
-          <li class="nav-item"><a class="nav-link" href="login.php">Ingresar</a></li>
+          <li class="nav-item"><a class="nav-link" href="login/login.php">Ingresar</a></li>
           <li class="nav-item"><a class="nav-link" href="#">Contacto</a></li>
         </ul>
       </div>
