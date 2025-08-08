@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
 <div class="container mt-5">
-    <a href="ListProf.php" class="btn btn-secondary mb-3">← Volver</a>
+    <a href="../AsignarClase/ListProf.php" class="btn btn-secondary mb-3">← Volver</a>
     <h3>Asignar Clases a: <?php echo $profesor['nombre'] . ' ' . $profesor['apellido']; ?></h3>
 
     <?php echo $mensaje; ?>

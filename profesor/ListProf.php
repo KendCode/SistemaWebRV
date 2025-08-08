@@ -1,4 +1,7 @@
 <?php
+include("../layaouts/navegacion.php");
+?>
+<?php
 include("../config/db.php");
 session_start();
 
@@ -70,9 +73,6 @@ if ($resultado) {
                                 <td class="text-center">
                                     <a href="VerProf.php?id=<?php echo $prof['profesor_id']; ?>" class="btn btn-info btn-sm" title="Ver"><i class="bi bi-eye"></i></a>
                                     <a href="EditarProf.php?id=<?php echo $prof['profesor_id']; ?>" class="btn btn-warning btn-sm" title="Editar"><i class="bi bi-pencil-square"></i></a>
-                                    <a href="AsignarClase.php?id=<?php echo $prof['profesor_id']; ?>" class="btn btn-success btn-sm" title="Asignar Clase">
-                                        <i class="bi bi-journal-plus"></i>
-                                    </a>
                                     <a href="EliminarProf.php?id=<?php echo $prof['profesor_id']; ?>" class="btn btn-danger btn-sm" title="Eliminar" onclick="return confirm('¿Estás seguro de eliminar este profesor?');"><i class="bi bi-trash"></i></a>
                                 </td>
                             </tr>
