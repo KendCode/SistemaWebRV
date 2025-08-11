@@ -65,7 +65,6 @@ if ($resC->num_rows > 0) {
 }
 
 // Redirigir
-// Redirigir
 header("Location: ver_estudiantes.php?curso_id=$curso_id&guardado=1");
 exit;
 ?>
